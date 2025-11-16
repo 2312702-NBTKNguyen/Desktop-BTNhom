@@ -1,0 +1,101 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
+using CTK47B_BaiTapNhom_ThuVienQuanLySachCaNhan.Models;
+using System.Configuration;
+
+namespace CTK47B_BaiTapNhom_ThuVienQuanLySachCaNhan.Data
+{
+ public class BookRepository
+ {
+ private readonly string _connectionString;
+
+ public BookRepository()
+ {
+ // Read connection string named "BookDb" from app.config
+ _connectionString = ConfigurationManager.ConnectionStrings["BookDb"]?.ConnectionString;
+ }
+
+ public List<Book> GetAll()
+ {
+ var list = new List<Book>();
+ using (var conn = new SqlConnection(_connectionString))
+ {
+ conn.Open();
+ using (var cmd = new SqlCommand("SELECT Id, Title, Author, Category, PublishDate, Publisher, PageCount, AddedDate FROM Books", conn))
+ using (var reader = cmd.ExecuteReader())
+ {
+ while (reader.Read())
+ {
+ var b = new Book
+ {
+ Id = reader.GetInt32(0),
+ Title = reader.GetString(1),
+ Author = reader.GetString(2),
+ Category = reader.GetString(3),
+ PublishDate = reader.GetDateTime(4),
+ Publisher = reader.GetString(5),
+ PageCount = reader.GetInt32(6),
+ AddedDate = reader.GetDateTime(7)
+ };
+ list.Add(b);
+ }
+ }
+ }
+ return list;
+ }
+
+ public int Add(Book b)
+ {
+ using (var conn = new SqlConnection(_connectionString))
+ {
+ conn.Open();
+ using (var cmd = new SqlCommand("INSERT INTO Books (Title, Author, Category, PublishDate, Publisher, PageCount, AddedDate) OUTPUT INSERTED.Id VALUES (@t,@a,@c,@pd,@p,@pc,@ad)", conn))
+ {
+ cmd.Parameters.AddWithValue("@t", b.Title);
+ cmd.Parameters.AddWithValue("@a", b.Author);
+ cmd.Parameters.AddWithValue("@c", b.Category);
+ cmd.Parameters.AddWithValue("@pd", b.PublishDate);
+ cmd.Parameters.AddWithValue("@p", b.Publisher);
+ cmd.Parameters.AddWithValue("@pc", b.PageCount);
+ cmd.Parameters.AddWithValue("@ad", b.AddedDate);
+ return (int)cmd.ExecuteScalar();
+ }
+ }
+ }
+
+ public void Update(Book b)
+ {
+ using (var conn = new SqlConnection(_connectionString))
+ {
+ conn.Open();
+ using (var cmd = new SqlCommand("UPDATE Books SET Title=@t,Author=@a,Category=@c,PublishDate=@pd,Publisher=@p,PageCount=@pc,AddedDate=@ad WHERE Id=@id", conn))
+ {
+ cmd.Parameters.AddWithValue("@t", b.Title);
+ cmd.Parameters.AddWithValue("@a", b.Author);
+ cmd.Parameters.AddWithValue("@c", b.Category);
+ cmd.Parameters.AddWithValue("@pd", b.PublishDate);
+ cmd.Parameters.AddWithValue("@p", b.Publisher);
+ cmd.Parameters.AddWithValue("@pc", b.PageCount);
+ cmd.Parameters.AddWithValue("@ad", b.AddedDate);
+ cmd.Parameters.AddWithValue("@id", b.Id);
+ cmd.ExecuteNonQuery();
+ }
+ }
+ }
+
+ public void Delete(int id)
+ {
+ using (var conn = new SqlConnection(_connectionString))
+ {
+ conn.Open();
+ using (var cmd = new SqlCommand("DELETE FROM Books WHERE Id=@id", conn))
+ {
+ cmd.Parameters.AddWithValue("@id", id);
+ cmd.ExecuteNonQuery();
+ }
+ }
+ }
+ }
+}

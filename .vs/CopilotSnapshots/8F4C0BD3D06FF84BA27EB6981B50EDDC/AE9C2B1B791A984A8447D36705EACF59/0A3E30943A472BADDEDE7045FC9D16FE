@@ -1,0 +1,204 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using CTK47B_BaiTapNhom_ThuVienQuanLySachCaNhan.Data;
+using CTK47B_BaiTapNhom_ThuVienQuanLySachCaNhan.Models;
+using System.IO;
+
+namespace CTK47B_BaiTapNhom_ThuVienQuanLySachCaNhan
+{
+ public partial class MainForm : Form
+ {
+ private BookRepository _repo;
+ private BindingList<Book> _books;
+ private BindingSource _bs = new BindingSource();
+
+ public MainForm()
+ {
+ InitializeComponent();
+ _repo = new BookRepository();
+ LoadBooks();
+ }
+
+ private void LoadBooks()
+ {
+ try
+ {
+ var list = _repo.GetAll();
+ _books = new BindingList<Book>(list);
+ _bs.DataSource = _books;
+ dgvBooks.DataSource = _bs;
+ }
+ catch (Exception ex)
+ {
+ MessageBox.Show("Error loading books: " + ex.Message);
+ }
+ }
+
+ private void TxtSearch_TextChanged(object sender, EventArgs e)
+ {
+ var q = txtSearch.Text?.ToLower() ?? "";
+ if (string.IsNullOrWhiteSpace(q))
+ {
+ _bs.DataSource = _books;
+ return;
+ }
+ var filtered = _books.Where(b => (b.Title ?? "").ToLower().Contains(q) || (b.Author ?? "").ToLower().Contains(q) || (b.Category ?? "").ToLower().Contains(q) || (b.Publisher ?? "").ToLower().Contains(q)).ToList();
+ _bs.DataSource = new BindingList<Book>(filtered);
+ }
+
+ private void Dgv_SelectionChanged(object sender, EventArgs e)
+ {
+ if (dgvBooks.SelectedRows.Count ==0)
+ {
+ txtDetails.Text = string.Empty;
+ return;
+ }
+ var b = dgvBooks.SelectedRows[0].DataBoundItem as Book;
+ if (b == null) return;
+ txtDetails.Text = $"ID: {b.Id}\r\nTitle: {b.Title}\r\nAuthor: {b.Author}\r\nCategory: {b.Category}\r\nPublish: {b.PublishDate:d}\r\nPublisher: {b.Publisher}\r\nPages: {b.PageCount}\r\nAdded: {b.AddedDate:g}";
+ }
+
+ private void BtnAdd_Click(object sender, EventArgs e)
+ {
+ var form = new Forms.AddEditBookForm();
+ if (form.ShowDialog(this) == DialogResult.OK)
+ {
+ try
+ {
+ var id = _repo.Add(form.Book);
+ form.Book.Id = id;
+ _books.Add(form.Book);
+ }
+ catch (Exception ex)
+ {
+ MessageBox.Show("Error adding book: " + ex.Message);
+ }
+ }
+ }
+
+ private void BtnEdit_Click(object sender, EventArgs e)
+ {
+ if (dgvBooks.SelectedRows.Count ==0) { MessageBox.Show("Select a book to edit"); return; }
+ var b = dgvBooks.SelectedRows[0].DataBoundItem as Book;
+ var clone = new Book
+ {
+ Id = b.Id,
+ Title = b.Title,
+ Author = b.Author,
+ Category = b.Category,
+ PublishDate = b.PublishDate,
+ Publisher = b.Publisher,
+ PageCount = b.PageCount,
+ AddedDate = b.AddedDate
+ };
+ var form = new Forms.AddEditBookForm(clone);
+ if (form.ShowDialog(this) == DialogResult.OK)
+ {
+ try
+ {
+ _repo.Update(form.Book);
+ // update in list
+ var idx = _books.IndexOf(b);
+ _books[idx] = form.Book;
+ _bs.ResetBindings(false);
+ }
+ catch (Exception ex)
+ {
+ MessageBox.Show("Error updating: " + ex.Message);
+ }
+ }
+ }
+
+ private void BtnDelete_Click(object sender, EventArgs e)
+ {
+ if (dgvBooks.SelectedRows.Count ==0) { MessageBox.Show("Select book(s) to delete"); return; }
+ if (MessageBox.Show($"Delete {dgvBooks.SelectedRows.Count} book(s)?", "Confirm", MessageBoxButtons.YesNo) != DialogResult.Yes) return;
+ try
+ {
+ var toDelete = new List<Book>();
+ foreach (DataGridViewRow row in dgvBooks.SelectedRows)
+ {
+ var b = row.DataBoundItem as Book;
+ if (b != null) toDelete.Add(b);
+ }
+ foreach (var b in toDelete)
+ {
+ _repo.Delete(b.Id);
+ _books.Remove(b);
+ }
+ }
+ catch (Exception ex)
+ {
+ MessageBox.Show("Error deleting: " + ex.Message);
+ }
+ }
+
+ private void BtnImport_Click(object sender, EventArgs e)
+ {
+ using (var ofd = new OpenFileDialog())
+ {
+ ofd.Filter = "Text files|*.txt|All files|*.*";
+ if (ofd.ShowDialog(this) != DialogResult.OK) return;
+ try
+ {
+ var lines = File.ReadAllLines(ofd.FileName);
+ foreach (var line in lines)
+ {
+ // expected CSV: Title|Author|Category|PublishDate(yyyy-MM-dd)|Publisher|PageCount
+ var parts = line.Split('|');
+ if (parts.Length <6) continue;
+ var b = new Book
+ {
+ Title = parts[0],
+ Author = parts[1],
+ Category = parts[2],
+ PublishDate = DateTime.Parse(parts[3]),
+ Publisher = parts[4],
+ PageCount = int.Parse(parts[5]),
+ AddedDate = DateTime.Now
+ };
+ var id = _repo.Add(b);
+ b.Id = id;
+ _books.Add(b);
+ }
+ }
+ catch (Exception ex)
+ {
+ MessageBox.Show("Import error: " + ex.Message);
+ }
+ }
+ }
+
+ private void BtnExport_Click(object sender, EventArgs e)
+ {
+ using (var sfd = new SaveFileDialog())
+ {
+ sfd.Filter = "CSV files|*.csv|All files|*.*";
+ sfd.FileName = "books_export.csv";
+ if (sfd.ShowDialog(this) != DialogResult.OK) return;
+ try
+ {
+ var sb = new StringBuilder();
+ sb.AppendLine("Id,Title,Author,Category,PublishDate,Publisher,PageCount,AddedDate");
+ foreach (var b in _books)
+ {
+ sb.AppendLine($"{b.Id},\"{b.Title}\",\"{b.Author}\",\"{b.Category}\",{b.PublishDate:yyyy-MM-dd},\"{b.Publisher}\",{b.PageCount},{b.AddedDate:yyyy-MM-dd HH:mm:ss}");
+ }
+ File.WriteAllText(sfd.FileName, sb.ToString(), Encoding.UTF8);
+ MessageBox.Show("Exported");
+ }
+ catch (Exception ex)
+ {
+ MessageBox.Show("Export error: " + ex.Message);
+ }
+ }
+ }
+ }
+}

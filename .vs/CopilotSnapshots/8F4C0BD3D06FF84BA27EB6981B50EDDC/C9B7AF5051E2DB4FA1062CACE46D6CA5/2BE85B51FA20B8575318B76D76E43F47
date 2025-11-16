@@ -1,0 +1,23 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Windows.Forms;
+using CTK47B_BaiTapNhom_ThuVienQuanLySachCaNhan.Models;
+
+namespace CTK47B_BaiTapNhom_ThuVienQuanLySachCaNhan.Forms
+{
+ public partial class ImportPreviewForm : Form
+ {
+ private List<Book> _books;
+ public ImportPreviewForm(List<Book> books)
+ {
+ _books = books;
+ InitializeComponent();
+ dgvPreview.DataSource = _books;
+ }
+
+ private void BtnImport_Click(object sender, EventArgs e)
+ {
+ this.DialogResult = DialogResult.OK;
+ }
+ }
+}

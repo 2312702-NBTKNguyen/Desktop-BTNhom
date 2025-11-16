@@ -1,0 +1,42 @@
+﻿using System;
+using System.Windows.Forms;
+using CTK47B_BaiTapNhom_ThuVienQuanLySachCaNhan.Models;
+
+namespace CTK47B_BaiTapNhom_ThuVienQuanLySachCaNhan.Forms
+{
+ public partial class AddEditBookForm : Form
+ {
+ public Book Book { get; private set; }
+ private bool _isEdit;
+ public AddEditBookForm()
+ {
+ InitializeComponent();
+ Book = new Book();
+ _isEdit = false;
+ }
+ public AddEditBookForm(Book book) : this()
+ {
+ Book = book;
+ _isEdit = true;
+ txtTitle.Text = book.Title;
+ txtAuthor.Text = book.Author;
+ txtCategory.Text = book.Category;
+ dtPublish.Value = book.PublishDate;
+ txtPublisher.Text = book.Publisher;
+ numPages.Value = book.PageCount;
+ dtAdded.Value = book.AddedDate;
+ }
+
+ private void btnOk_Click(object sender, EventArgs e)
+ {
+ Book.Title = txtTitle.Text;
+ Book.Author = txtAuthor.Text;
+ Book.Category = txtCategory.Text;
+ Book.PublishDate = dtPublish.Value;
+ Book.Publisher = txtPublisher.Text;
+ Book.PageCount = (int)numPages.Value;
+ Book.AddedDate = dtAdded.Value;
+ DialogResult = DialogResult.OK;
+ }
+ }
+}

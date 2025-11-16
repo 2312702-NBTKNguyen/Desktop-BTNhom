@@ -1,0 +1,128 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Windows.Forms;
+using CTK47B_BaiTapNhom_ThuVienQuanLySachCaNhan.Models;
+using System.IO;
+
+namespace CTK47B_BaiTapNhom_ThuVienQuanLySachCaNhan.Forms
+{
+ public partial class AddEditBookForm : Form
+ {
+ public Book Book { get; private set; }
+ public List<Book> ImportedBooks { get; set; } = new List<Book>();
+ private bool _isEdit;
+
+ public AddEditBookForm()
+ {
+ InitializeComponent();
+ Book = new Book { AddedDate = DateTime.Now };
+ _isEdit = false;
+ dtAdded.Value = DateTime.Now;
+ }
+
+ public AddEditBookForm(Book book) : this()
+ {
+ Book = book;
+ _isEdit = true;
+ LoadBookToForm(book);
+ }
+
+ private void LoadBookToForm(Book book)
+ {
+ txtTitle.Text = book.Title;
+ txtAuthor.Text = book.Author;
+ txtCategory.Text = book.Category;
+ dtPublish.Value = book.PublishDate != DateTime.MinValue ? book.PublishDate : DateTime.Now;
+ txtPublisher.Text = book.Publisher;
+ numPages.Value = Math.Max(0, book.PageCount);
+ dtAdded.Value = book.AddedDate != DateTime.MinValue ? book.AddedDate : DateTime.Now;
+ this.Text = "Sửa sách";
+ }
+
+ private void BtnOk_Click(object sender, EventArgs e)
+ {
+ if (string.IsNullOrWhiteSpace(txtTitle.Text))
+ {
+ MessageBox.Show("Vui lòng nhập tiêu đề sách!", "Lỗi");
+ return;
+ }
+
+ Book.Title = txtTitle.Text.Trim();
+ Book.Author = txtAuthor.Text.Trim();
+ Book.Category = txtCategory.Text.Trim();
+ Book.PublishDate = dtPublish.Value;
+ Book.Publisher = txtPublisher.Text.Trim();
+ Book.PageCount = (int)numPages.Value;
+ Book.AddedDate = dtAdded.Value;
+
+ DialogResult = DialogResult.OK;
+ this.Close();
+ }
+
+ private void BtnImport_Click(object sender, EventArgs e)
+ {
+ using (var ofd = new OpenFileDialog())
+ {
+ ofd.Filter = "Text files|*.txt|All files|*.*";
+ ofd.Title = "Import sách từ file TXT";
+
+ if (ofd.ShowDialog(this) != DialogResult.OK) return;
+
+ try
+ {
+ var lines = File.ReadAllLines(ofd.FileName);
+ var books = new List<Book>();
+
+ foreach (var line in lines)
+ {
+ if (string.IsNullOrWhiteSpace(line)) continue;
+
+ var parts = line.Split('|');
+ if (parts.Length < 6)
+ {
+ MessageBox.Show($"Dòng không hợp lệ: {line}\\nĐịnh dạng: Tiêu Đề|Tác Giả|Thể Loại|Ngày XB|NXB|Trang", "Cảnh báo");
+ continue;
+ }
+
+ DateTime publishDate = DateTime.MinValue;
+ if (!DateTime.TryParse(parts[3], out publishDate))
+ {
+ publishDate = DateTime.MinValue;
+ }
+
+ int pageCount = 0;
+ int.TryParse(parts[5], out pageCount);
+
+ var book = new Book
+ {
+ Title = parts[0].Trim(),
+ Author = parts[1].Trim(),
+ Category = parts[2].Trim(),
+ PublishDate = publishDate,
+ Publisher = parts[4].Trim(),
+ PageCount = pageCount,
+ AddedDate = DateTime.Now
+ };
+
+ books.Add(book);
+ }
+
+ if (books.Count > 0)
+ {
+ ImportedBooks = books;
+ LoadBookToForm(books[0]);
+ MessageBox.Show($"Đã tải {books.Count} sách từ file. Bạn có thể chỉnh sửa quyển đầu tiên rồi lưu.", "Import thành công");
+ }
+ else
+ {
+ MessageBox.Show("Không tìm thấy sách nào trong file!", "Thông báo");
+ }
+ }
+ catch (Exception ex)
+ {
+ MessageBox.Show("Lỗi import: " + ex.Message, "Lỗi");
+ }
+ }
+ }
+}

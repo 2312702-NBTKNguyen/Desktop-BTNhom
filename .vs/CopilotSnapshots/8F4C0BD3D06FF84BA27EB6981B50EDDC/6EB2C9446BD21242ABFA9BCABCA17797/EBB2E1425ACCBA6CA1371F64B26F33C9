@@ -1,0 +1,137 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
+using CTK47B_BaiTapNhom_ThuVienQuanLySachCaNhan.Models;
+using System.IO;
+using System.Reflection;
+
+namespace CTK47B_BaiTapNhom_ThuVienQuanLySachCaNhan.Data
+{
+ public class BookRepository
+ {
+ private readonly string _connectionString;
+
+ public BookRepository()
+ {
+ // Try to read connection string named "BookDb" using reflection to avoid compile-time dependency on System.Configuration
+ string conn = null;
+ try
+ {
+ var cmType = Type.GetType("System.Configuration.ConfigurationManager, System.Configuration");
+ if (cmType != null)
+ {
+ var prop = cmType.GetProperty("ConnectionStrings", BindingFlags.Static | BindingFlags.Public);
+ var css = prop?.GetValue(null, null);
+ if (css != null)
+ {
+ // connectionStrings["BookDb"]
+ var indexer = css.GetType().GetProperty("Item");
+ var cssItem = indexer?.GetValue(css, new object[] { "BookDb" });
+ if (cssItem != null)
+ {
+ var connProp = cssItem.GetType().GetProperty("ConnectionString");
+ conn = connProp?.GetValue(cssItem) as string;
+ }
+ }
+ }
+ }
+ catch { }
+
+ // Fallback: environment variable BOOKDB_CONN or empty
+ if (string.IsNullOrEmpty(conn)) conn = Environment.GetEnvironmentVariable("BOOKDB_CONN") ?? string.Empty;
+ _connectionString = conn;
+ }
+
+ private void EnsureConnectionString()
+ {
+ if (string.IsNullOrWhiteSpace(_connectionString))
+ throw new InvalidOperationException("Connection string not configured. Please add a connection string named 'BookDb' in app.config or set BOOKDB_CONN environment variable.");
+ }
+
+ public List<Book> GetAll()
+ {
+ EnsureConnectionString();
+ var list = new List<Book>();
+ using (var conn = new SqlConnection(_connectionString))
+ {
+ conn.Open();
+ using (var cmd = new SqlCommand("SELECT Id, Title, Author, Category, PublishDate, Publisher, PageCount, AddedDate FROM Books", conn))
+ using (var reader = cmd.ExecuteReader())
+ {
+ while (reader.Read())
+ {
+ var b = new Book
+ {
+ Id = reader.GetInt32(0),
+ Title = reader.IsDBNull(1) ? string.Empty : reader.GetString(1),
+ Author = reader.IsDBNull(2) ? string.Empty : reader.GetString(2),
+ Category = reader.IsDBNull(3) ? string.Empty : reader.GetString(3),
+ PublishDate = reader.IsDBNull(4) ? DateTime.MinValue : reader.GetDateTime(4),
+ Publisher = reader.IsDBNull(5) ? string.Empty : reader.GetString(5),
+ PageCount = reader.IsDBNull(6) ?0 : reader.GetInt32(6),
+ AddedDate = reader.IsDBNull(7) ? DateTime.MinValue : reader.GetDateTime(7)
+ };
+ list.Add(b);
+ }
+ }
+ }
+ return list;
+ }
+
+ public int Add(Book b)
+ {
+ EnsureConnectionString();
+ using (var conn = new SqlConnection(_connectionString))
+ {
+ conn.Open();
+ using (var cmd = new SqlCommand("INSERT INTO Books (Title, Author, Category, PublishDate, Publisher, PageCount, AddedDate) OUTPUT INSERTED.Id VALUES (@t,@a,@c,@pd,@p,@pc,@ad)", conn))
+ {
+ cmd.Parameters.AddWithValue("@t", (object)b.Title ?? DBNull.Value);
+ cmd.Parameters.AddWithValue("@a", (object)b.Author ?? DBNull.Value);
+ cmd.Parameters.AddWithValue("@c", (object)b.Category ?? DBNull.Value);
+ cmd.Parameters.AddWithValue("@pd", b.PublishDate == DateTime.MinValue ? (object)DBNull.Value : b.PublishDate);
+ cmd.Parameters.AddWithValue("@p", (object)b.Publisher ?? DBNull.Value);
+ cmd.Parameters.AddWithValue("@pc", b.PageCount);
+ cmd.Parameters.AddWithValue("@ad", b.AddedDate == DateTime.MinValue ? (object)DBNull.Value : b.AddedDate);
+ return (int)cmd.ExecuteScalar();
+ }
+ }
+ }
+
+ public void Update(Book b)
+ {
+ EnsureConnectionString();
+ using (var conn = new SqlConnection(_connectionString))
+ {
+ conn.Open();
+ using (var cmd = new SqlCommand("UPDATE Books SET Title=@t,Author=@a,Category=@c,PublishDate=@pd,Publisher=@p,PageCount=@pc,AddedDate=@ad WHERE Id=@id", conn))
+ {
+ cmd.Parameters.AddWithValue("@t", (object)b.Title ?? DBNull.Value);
+ cmd.Parameters.AddWithValue("@a", (object)b.Author ?? DBNull.Value);
+ cmd.Parameters.AddWithValue("@c", (object)b.Category ?? DBNull.Value);
+ cmd.Parameters.AddWithValue("@pd", b.PublishDate == DateTime.MinValue ? (object)DBNull.Value : b.PublishDate);
+ cmd.Parameters.AddWithValue("@p", (object)b.Publisher ?? DBNull.Value);
+ cmd.Parameters.AddWithValue("@pc", b.PageCount);
+ cmd.Parameters.AddWithValue("@ad", b.AddedDate == DateTime.MinValue ? (object)DBNull.Value : b.AddedDate);
+ cmd.Parameters.AddWithValue("@id", b.Id);
+ cmd.ExecuteNonQuery();
+ }
+ }
+ }
+
+ public void Delete(int id)
+ {
+ EnsureConnectionString();
+ using (var conn = new SqlConnection(_connectionString))
+ {
+ conn.Open();
+ using (var cmd = new SqlCommand("DELETE FROM Books WHERE Id=@id", conn))
+ {
+ cmd.Parameters.AddWithValue("@id", id);
+ cmd.ExecuteNonQuery();
+ }
+ }
+ }
+ }
+}

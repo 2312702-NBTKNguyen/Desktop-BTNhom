@@ -1,0 +1,113 @@
+﻿using System;
+using System.Drawing;
+using System.IO;
+using System.Windows.Forms;
+
+namespace ThuVienQuanLySachCaNhan.BookAdd
+{
+    public partial class BookInfoForm : Form
+    {
+        public BookInfoForm()
+        {
+            InitializeComponent();
+            dtpDateAdded.Value = DateTime.Today;
+            dtpPublishDate.Value = DateTime.Today;
+            txtID.Text = GenerateTemporaryId();
+        }
+
+        private string GenerateTemporaryId()
+        {
+            return DateTime.Now.Ticks.ToString().Substring(10);
+        }
+
+        private void btnLoadCover_Click(object sender, EventArgs e)
+        {
+            using (OpenFileDialog ofd = new OpenFileDialog())
+            {
+                ofd.Filter = "Image Files|*.png;*.jpg;*.jpeg;*.bmp|All files|*.*";
+                if (ofd.ShowDialog() == DialogResult.OK)
+                {
+                    try
+                    {
+                        using (var img = Image.FromFile(ofd.FileName))
+                        {
+                            pbCover.Image = new Bitmap(img);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Không thể tải ảnh bìa: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
+        }
+
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            this.DialogResult = DialogResult.Cancel;
+            this.Close();
+        }
+
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            if (!ValidateInputs()) return;
+
+            // Build a simple object representation (anonymous) to return via Tag
+            var book = new
+            {
+                ID = txtID.Text.Trim(),
+                Title = txtTitle.Text.Trim(),
+                Author = txtAuthor.Text.Trim(),
+                Topic = txtTopic.Text.Trim(),
+                Publisher = txtPublisher.Text.Trim(),
+                PublishDate = dtpPublishDate.Value.Date,
+                DateAdded = dtpDateAdded.Value.Date,
+                FileSizeMB = nudFileSize.Value,
+                Pages = (int)nudPages.Value,
+                CoverBytes = pbCover.Image != null ? ImageToBytes(pbCover.Image) : null
+            };
+
+            this.Tag = book;
+            this.DialogResult = DialogResult.OK;
+            this.Close();
+        }
+
+        private void tsbSave_Click(object sender, EventArgs e)
+        {
+            btnSave_Click(sender, e);
+        }
+
+        private void tsbCancel_Click(object sender, EventArgs e)
+        {
+            btnCancel_Click(sender, e);
+        }
+
+        private bool ValidateInputs()
+        {
+            if (string.IsNullOrWhiteSpace(txtTitle.Text))
+            {
+                MessageBox.Show("Tiêu đề không được để trống.", "Xác thực", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtTitle.Focus();
+                return false;
+            }
+
+            if (string.IsNullOrWhiteSpace(txtAuthor.Text))
+            {
+                MessageBox.Show("Tác giả không được để trống.", "Xác thực", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtAuthor.Focus();
+                return false;
+            }
+
+            return true;
+        }
+
+        private byte[] ImageToBytes(Image img)
+        {
+            using (var ms = new MemoryStream())
+            {
+                img.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
+                return ms.ToArray();
+            }
+        }
+    }
+}

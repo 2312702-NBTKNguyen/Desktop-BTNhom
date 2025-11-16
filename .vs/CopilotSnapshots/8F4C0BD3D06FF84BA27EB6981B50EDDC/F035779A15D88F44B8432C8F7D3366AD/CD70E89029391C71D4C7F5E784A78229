@@ -1,0 +1,262 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Windows.Forms;
+using CTK47B_BaiTapNhom_ThuVienQuanLySachCaNhan.Data;
+using CTK47B_BaiTapNhom_ThuVienQuanLySachCaNhan.Models;
+using System.IO;
+
+namespace CTK47B_BaiTapNhom_ThuVienQuanLySachCaNhan
+{
+ public partial class MainForm : Form
+ {
+ private BookRepository _repo;
+ private BindingList<Book> _allBooks;
+ private BindingSource _bindingSource;
+
+ public MainForm()
+ {
+ InitializeComponent();
+ _repo = new BookRepository();
+ _bindingSource = new BindingSource();
+ StyleApp();
+ LoadBooks();
+ }
+
+ private void StyleApp()
+ {
+ this.BackColor = Color.FromArgb(245, 245, 245);
+ this.Font = new Font("Segoe UI", 9F);
+ }
+
+ private void LoadBooks()
+ {
+ try
+ {
+ var books = _repo.GetAll();
+ _allBooks = new BindingList<Book>(books);
+ _bindingSource.DataSource = _allBooks;
+ dgvBooks.DataSource = _bindingSource;
+ dgvBooks.Columns["AddedDate"].Visible = false;
+ UpdateStatus();
+ }
+ catch (Exception ex)
+ {
+ MessageBox.Show("Lỗi tải dữ liệu: " + ex.Message, "Lỗi");
+ }
+ }
+
+ private void UpdateStatus()
+ {
+ lblStatus.Text = $"Tổng cộng: {_allBooks.Count} sách";
+ }
+
+ private void TxtSearch_TextChanged(object sender, EventArgs e)
+ {
+ FilterBooks();
+ }
+
+ private void FilterBooks()
+ {
+ string query = txtSearch.Text.ToLower();
+ if (string.IsNullOrWhiteSpace(query))
+ {
+ _bindingSource.DataSource = _allBooks;
+ return;
+ }
+
+ var filtered = _allBooks.Where(b =>
+ (b.Title ?? "").ToLower().Contains(query) ||
+ (b.Author ?? "").ToLower().Contains(query) ||
+ (b.Category ?? "").ToLower().Contains(query) ||
+ (b.Publisher ?? "").ToLower().Contains(query)
+ ).ToList();
+
+ _bindingSource.DataSource = new BindingList<Book>(filtered);
+ }
+
+ private void dgvBooks_SelectionChanged(object sender, EventArgs e)
+ {
+ if (dgvBooks.SelectedRows.Count > 0)
+ {
+ var book = dgvBooks.SelectedRows[0].DataBoundItem as Book;
+ if (book != null)
+ {
+ ShowBookDetails(book);
+ }
+ }
+ else
+ {
+ ClearDetails();
+ }
+ }
+
+ private void ShowBookDetails(Book book)
+ {
+ lblTitleValue.Text = book.Title;
+ lblAuthorValue.Text = book.Author;
+ lblCategoryValue.Text = book.Category;
+ lblPublisherValue.Text = book.Publisher;
+ lblPagesValue.Text = book.PageCount > 0 ? book.PageCount.ToString() : "N/A";
+ lblPublishDateValue.Text = book.PublishDate != DateTime.MinValue ? book.PublishDate.ToShortDateString() : "N/A";
+ lblAddedValue.Text = book.AddedDate != DateTime.MinValue ? book.AddedDate.ToString("dd/MM/yyyy") : "N/A";
+ }
+
+ private void ClearDetails()
+ {
+ lblTitleValue.Text = "";
+ lblAuthorValue.Text = "";
+ lblCategoryValue.Text = "";
+ lblPublisherValue.Text = "";
+ lblPagesValue.Text = "";
+ lblPublishDateValue.Text = "";
+ lblAddedValue.Text = "";
+ }
+
+ private void BtnAdd_Click(object sender, EventArgs e)
+ {
+ var form = new Forms.AddEditBookForm();
+ if (form.ShowDialog(this) == DialogResult.OK)
+ {
+ try
+ {
+ var id = _repo.Add(form.Book);
+ form.Book.Id = id;
+ _allBooks.Add(form.Book);
+ 
+ // Handle batch import if exists
+ if (form.ImportedBooks != null && form.ImportedBooks.Count > 0)
+ {
+ foreach (var book in form.ImportedBooks.Skip(1))
+ {
+ var bkId = _repo.Add(book);
+ book.Id = bkId;
+ _allBooks.Add(book);
+ }
+ MessageBox.Show($"Thêm {form.ImportedBooks.Count} sách thành công!", "Thành công");
+ }
+ else
+ {
+ MessageBox.Show("Thêm sách thành công!", "Thành công");
+ }
+ 
+ UpdateStatus();
+ FilterBooks();
+ }
+ catch (Exception ex)
+ {
+ MessageBox.Show("Lỗi: " + ex.Message, "Lỗi");
+ }
+ }
+ }
+
+ private void BtnEdit_Click(object sender, EventArgs e)
+ {
+ if (dgvBooks.SelectedRows.Count == 0)
+ {
+ MessageBox.Show("Chọn sách cần sửa!", "Thông báo");
+ return;
+ }
+
+ var book = dgvBooks.SelectedRows[0].DataBoundItem as Book;
+ var form = new Forms.AddEditBookForm(book);
+ 
+ if (form.ShowDialog(this) == DialogResult.OK)
+ {
+ try
+ {
+ _repo.Update(form.Book);
+ var idx = _allBooks.IndexOf(book);
+ _allBooks[idx] = form.Book;
+ UpdateStatus();
+ MessageBox.Show("Cập nhật thành công!", "Thành công");
+ }
+ catch (Exception ex)
+ {
+ MessageBox.Show("Lỗi: " + ex.Message, "Lỗi");
+ }
+ }
+ }
+
+ private void BtnDelete_Click(object sender, EventArgs e)
+ {
+ if (dgvBooks.SelectedRows.Count == 0)
+ {
+ MessageBox.Show("Chọn sách cần xóa!", "Thông báo");
+ return;
+ }
+
+ if (MessageBox.Show($"Xóa {dgvBooks.SelectedRows.Count} sách?", "Xác nhận", MessageBoxButtons.YesNo) != DialogResult.Yes)
+ return;
+
+ try
+ {
+ var toDelete = new List<Book>();
+ foreach (DataGridViewRow row in dgvBooks.SelectedRows)
+ {
+ var book = row.DataBoundItem as Book;
+ if (book != null) toDelete.Add(book);
+ }
+
+ foreach (var book in toDelete)
+ {
+ _repo.Delete(book.Id);
+ _allBooks.Remove(book);
+ }
+
+ UpdateStatus();
+ MessageBox.Show($"Xóa {toDelete.Count} sách thành công!", "Thành công");
+ }
+ catch (Exception ex)
+ {
+ MessageBox.Show("Lỗi: " + ex.Message, "Lỗi");
+ }
+ }
+
+ private void BtnExport_Click(object sender, EventArgs e)
+ {
+ if (_allBooks.Count == 0)
+ {
+ MessageBox.Show("Không có sách để xuất!", "Thông báo");
+ return;
+ }
+
+ using (var sfd = new SaveFileDialog())
+ {
+ sfd.Filter = "CSV Files|*.csv|All Files|*.*";
+ sfd.FileName = "books_export.csv";
+ 
+ if (sfd.ShowDialog(this) == DialogResult.OK)
+ {
+ try
+ {
+ var sb = new StringBuilder();
+ sb.AppendLine("ID,Tiêu đề,Tác giả,Thể loại,Nhà xuất bản,Số trang,Ngày xuất bản");
+ 
+ foreach (var book in _allBooks)
+ {
+ sb.AppendLine($"{book.Id},\"{book.Title}\",\"{book.Author}\",\"{book.Category}\",\"{book.Publisher}\",{book.PageCount},{book.PublishDate:yyyy-MM-dd}");
+ }
+ 
+ File.WriteAllText(sfd.FileName, sb.ToString(), Encoding.UTF8);
+ MessageBox.Show($"Xuất {_allBooks.Count} sách thành công!", "Thành công");
+ }
+ catch (Exception ex)
+ {
+ MessageBox.Show("Lỗi: " + ex.Message, "Lỗi");
+ }
+ }
+ }
+ }
+
+ private void BtnClearSearch_Click(object sender, EventArgs e)
+ {
+ txtSearch.Clear();
+ FilterBooks();
+ }
+ }
+}

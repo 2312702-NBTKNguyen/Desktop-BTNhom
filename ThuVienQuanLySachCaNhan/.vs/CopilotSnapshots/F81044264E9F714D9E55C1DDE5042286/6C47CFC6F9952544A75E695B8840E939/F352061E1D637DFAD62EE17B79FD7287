@@ -1,0 +1,118 @@
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Windows.Forms;
+
+namespace ThuVienQuanLySachCaNhan.BookAdd
+{
+    public partial class FromFileForm : Form
+    {
+        public FromFileForm()
+        {
+            InitializeComponent();
+        }
+
+        private void tsbImport_Click(object sender, EventArgs e)
+        {
+            btnImport_Click(sender, e);
+        }
+
+        private void tsbClose_Click(object sender, EventArgs e)
+        {
+            this.DialogResult = DialogResult.Cancel;
+            this.Close();
+        }
+
+        private void btnBrowse_Click(object sender, EventArgs e)
+        {
+            using (OpenFileDialog ofd = new OpenFileDialog())
+            {
+                ofd.Filter = "Text files|*.txt|All files|*.*";
+                if (ofd.ShowDialog() == DialogResult.OK)
+                {
+                    txtFilePath.Text = ofd.FileName;
+                    LoadPreview(ofd.FileName);
+                }
+            }
+        }
+
+        private void LoadPreview(string path)
+        {
+            lstPreview.Items.Clear();
+            try
+            {
+                var lines = File.ReadAllLines(path);
+                // show up to200 lines
+                foreach (var line in lines.Take(200))
+                {
+                    if (!string.IsNullOrWhiteSpace(line)) lstPreview.Items.Add(line);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Không thể đọc file: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnImport_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(txtFilePath.Text) || !File.Exists(txtFilePath.Text))
+            {
+                MessageBox.Show("Vui lòng chọn file .txt hợp lệ.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            try
+            {
+                var lines = File.ReadAllLines(txtFilePath.Text).Where(l => !string.IsNullOrWhiteSpace(l)).ToArray();
+                var books = new List<object>();
+                foreach (var line in lines)
+                {
+                    // Expected simple CSV: Title|Author|Topic|Publisher|PublishDate(dd/MM/yyyy)|FileSizeMB|Pages
+                    var parts = line.Split('|');
+                    if (parts.Length < 7) continue; // skip invalid
+                    DateTime publishDate;
+                    decimal filesize;
+                    int pages;
+                    DateTime.TryParse(parts[4], out publishDate);
+                    decimal.TryParse(parts[5], out filesize);
+                    int.TryParse(parts[6], out pages);
+                    var book = new
+                    {
+                        ID = Guid.NewGuid().ToString(),
+                        Title = parts[0].Trim(),
+                        Author = parts[1].Trim(),
+                        Topic = parts[2].Trim(),
+                        Publisher = parts[3].Trim(),
+                        PublishDate = publishDate,
+                        DateAdded = DateTime.Now.Date,
+                        FileSizeMB = filesize,
+                        Pages = pages
+                    };
+                    books.Add(book);
+                }
+
+                if (books.Count == 0)
+                {
+                    MessageBox.Show("Không tìm thấy bản ghi hợp lệ trong file.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
+
+                this.Tag = books; // return list via Tag
+                this.DialogResult = DialogResult.OK;
+                this.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi khi nhập: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            this.DialogResult = DialogResult.Cancel;
+            this.Close();
+        }
+    }
+}

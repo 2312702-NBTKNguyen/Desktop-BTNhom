@@ -1,0 +1,524 @@
+﻿namespace CTK47B_BaiTapNhom_ThuVienQuanLySachCaNhan
+{
+ partial class MainForm
+ {
+ /// <summary>
+ /// Required designer variable.
+ /// </summary>
+ private System.ComponentModel.IContainer components = null;
+
+ /// <summary>
+ /// Clean up any resources being used.
+ /// </summary>
+ /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+ protected override void Dispose(bool disposing)
+ {
+ if (disposing && (components != null))
+ {
+ components.Dispose();
+ }
+ base.Dispose(disposing);
+ }
+
+ #region Windows Form Designer generated code
+
+ /// <summary>
+ /// Required method for Designer support - do not modify
+ /// the contents of this method with the code editor.
+ /// </summary>
+ private void InitializeComponent()
+ {
+            this.pnlTop = new System.Windows.Forms.FlowLayoutPanel();
+            this.btnAdd = new System.Windows.Forms.Button();
+            this.btnEdit = new System.Windows.Forms.Button();
+            this.btnDelete = new System.Windows.Forms.Button();
+            this.btnImport = new System.Windows.Forms.Button();
+            this.btnExport = new System.Windows.Forms.Button();
+            this.pnlSearch = new System.Windows.Forms.Panel();
+            this.btnClearSearch = new System.Windows.Forms.Button();
+            this.txtSearch = new System.Windows.Forms.TextBox();
+            this.lblSearch = new System.Windows.Forms.Label();
+            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.dgvBooks = new System.Windows.Forms.DataGridView();
+            this.pnlDetails = new System.Windows.Forms.Panel();
+            this.pbCover = new System.Windows.Forms.PictureBox();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.lblDetailTitle = new System.Windows.Forms.Label();
+            this.lblDetailTitleValue = new System.Windows.Forms.Label();
+            this.lblDetailAuthor = new System.Windows.Forms.Label();
+            this.lblDetailAuthorValue = new System.Windows.Forms.Label();
+            this.lblDetailCategory = new System.Windows.Forms.Label();
+            this.lblDetailCategoryValue = new System.Windows.Forms.Label();
+            this.lblDetailPublish = new System.Windows.Forms.Label();
+            this.lblDetailPublishValue = new System.Windows.Forms.Label();
+            this.lblDetailPublisher = new System.Windows.Forms.Label();
+            this.lblDetailPublisherValue = new System.Windows.Forms.Label();
+            this.lblDetailPages = new System.Windows.Forms.Label();
+            this.lblDetailPagesValue = new System.Windows.Forms.Label();
+            this.lblDetailAdded = new System.Windows.Forms.Label();
+            this.lblDetailAddedValue = new System.Windows.Forms.Label();
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.toolStripStatusLabelCount = new System.Windows.Forms.ToolStripStatusLabel();
+            this.lblTotalBooks = new System.Windows.Forms.Label();
+            this.pnlTop.SuspendLayout();
+            this.pnlSearch.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
+            this.splitContainer1.Panel1.SuspendLayout();
+            this.splitContainer1.Panel2.SuspendLayout();
+            this.splitContainer1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvBooks)).BeginInit();
+            this.pnlDetails.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbCover)).BeginInit();
+            this.tableLayoutPanel1.SuspendLayout();
+            this.statusStrip1.SuspendLayout();
+            this.SuspendLayout();
+            // 
+            // pnlTop
+            // 
+            this.pnlTop.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(128)))), ((int)(((byte)(185)))));
+            this.pnlTop.Controls.Add(this.btnAdd);
+            this.pnlTop.Controls.Add(this.btnEdit);
+            this.pnlTop.Controls.Add(this.btnDelete);
+            this.pnlTop.Controls.Add(this.btnImport);
+            this.pnlTop.Controls.Add(this.btnExport);
+            this.pnlTop.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pnlTop.Location = new System.Drawing.Point(0, 0);
+            this.pnlTop.Name = "pnlTop";
+            this.pnlTop.Padding = new System.Windows.Forms.Padding(15);
+            this.pnlTop.Size = new System.Drawing.Size(1200, 100);
+            this.pnlTop.TabIndex = 2;
+            // 
+            // btnAdd
+            // 
+            this.btnAdd.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            this.btnAdd.ForeColor = System.Drawing.Color.White;
+            this.btnAdd.Location = new System.Drawing.Point(18, 18);
+            this.btnAdd.Name = "btnAdd";
+            this.btnAdd.Size = new System.Drawing.Size(90, 70);
+            this.btnAdd.TabIndex = 0;
+            this.btnAdd.Text = "Thêm Sách";
+            this.btnAdd.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.btnAdd.Click += new System.EventHandler(this.BtnAdd_Click);
+            // 
+            // btnEdit
+            // 
+            this.btnEdit.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            this.btnEdit.ForeColor = System.Drawing.Color.White;
+            this.btnEdit.Location = new System.Drawing.Point(114, 18);
+            this.btnEdit.Name = "btnEdit";
+            this.btnEdit.Size = new System.Drawing.Size(90, 70);
+            this.btnEdit.TabIndex = 1;
+            this.btnEdit.Text = "Chỉnh Sửa";
+            this.btnEdit.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.btnEdit.Click += new System.EventHandler(this.BtnEdit_Click);
+            // 
+            // btnDelete
+            // 
+            this.btnDelete.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            this.btnDelete.ForeColor = System.Drawing.Color.White;
+            this.btnDelete.Location = new System.Drawing.Point(210, 18);
+            this.btnDelete.Name = "btnDelete";
+            this.btnDelete.Size = new System.Drawing.Size(90, 70);
+            this.btnDelete.TabIndex = 2;
+            this.btnDelete.Text = "Xóa";
+            this.btnDelete.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.btnDelete.Click += new System.EventHandler(this.BtnDelete_Click);
+            // 
+            // btnImport
+            // 
+            this.btnImport.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            this.btnImport.ForeColor = System.Drawing.Color.White;
+            this.btnImport.Location = new System.Drawing.Point(306, 18);
+            this.btnImport.Name = "btnImport";
+            this.btnImport.Size = new System.Drawing.Size(90, 70);
+            this.btnImport.TabIndex = 3;
+            this.btnImport.Text = "Nhập TXT";
+            this.btnImport.Click += new System.EventHandler(this.BtnImport_Click);
+            // 
+            // btnExport
+            // 
+            this.btnExport.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            this.btnExport.ForeColor = System.Drawing.Color.White;
+            this.btnExport.Location = new System.Drawing.Point(402, 18);
+            this.btnExport.Name = "btnExport";
+            this.btnExport.Size = new System.Drawing.Size(90, 70);
+            this.btnExport.TabIndex = 4;
+            this.btnExport.Text = "Xuất CSV";
+            this.btnExport.Click += new System.EventHandler(this.BtnExport_Click);
+            // 
+            // pnlSearch
+            // 
+            this.pnlSearch.BackColor = System.Drawing.Color.White;
+            this.pnlSearch.Controls.Add(this.btnClearSearch);
+            this.pnlSearch.Controls.Add(this.txtSearch);
+            this.pnlSearch.Controls.Add(this.lblSearch);
+            this.pnlSearch.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pnlSearch.Location = new System.Drawing.Point(0, 100);
+            this.pnlSearch.Name = "pnlSearch";
+            this.pnlSearch.Padding = new System.Windows.Forms.Padding(15);
+            this.pnlSearch.Size = new System.Drawing.Size(1200, 60);
+            this.pnlSearch.TabIndex = 1;
+            // 
+            // btnClearSearch
+            // 
+            this.btnClearSearch.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(76)))), ((int)(((byte)(60)))));
+            this.btnClearSearch.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.btnClearSearch.ForeColor = System.Drawing.Color.White;
+            this.btnClearSearch.Location = new System.Drawing.Point(640, 10);
+            this.btnClearSearch.Name = "btnClearSearch";
+            this.btnClearSearch.Size = new System.Drawing.Size(60, 32);
+            this.btnClearSearch.TabIndex = 0;
+            this.btnClearSearch.Text = "Xóa";
+            this.btnClearSearch.UseVisualStyleBackColor = false;
+            this.btnClearSearch.Click += new System.EventHandler(this.BtnClearSearch_Click);
+            // 
+            // txtSearch
+            // 
+            this.txtSearch.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtSearch.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.txtSearch.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(62)))), ((int)(((byte)(80)))));
+            this.txtSearch.Location = new System.Drawing.Point(130, 10);
+            this.txtSearch.Name = "txtSearch";
+            this.txtSearch.Size = new System.Drawing.Size(500, 25);
+            this.txtSearch.TabIndex = 1;
+            this.txtSearch.TextChanged += new System.EventHandler(this.TxtSearch_TextChanged);
+            // 
+            // lblSearch
+            // 
+            this.lblSearch.AutoSize = true;
+            this.lblSearch.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
+            this.lblSearch.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(62)))), ((int)(((byte)(80)))));
+            this.lblSearch.Location = new System.Drawing.Point(15, 15);
+            this.lblSearch.Name = "lblSearch";
+            this.lblSearch.Size = new System.Drawing.Size(104, 20);
+            this.lblSearch.TabIndex = 2;
+            this.lblSearch.Text = "🔍 Tìm kiếm:";
+            // 
+            // splitContainer1
+            // 
+            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer1.Location = new System.Drawing.Point(0, 160);
+            this.splitContainer1.Name = "splitContainer1";
+            // 
+            // splitContainer1.Panel1
+            // 
+            this.splitContainer1.Panel1.BackColor = System.Drawing.Color.White;
+            this.splitContainer1.Panel1.Controls.Add(this.dgvBooks);
+            // 
+            // splitContainer1.Panel2
+            // 
+            this.splitContainer1.Panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(240)))), ((int)(((byte)(241)))));
+            this.splitContainer1.Panel2.Controls.Add(this.pnlDetails);
+            this.splitContainer1.Size = new System.Drawing.Size(1200, 518);
+            this.splitContainer1.SplitterDistance = 967;
+            this.splitContainer1.TabIndex = 0;
+            // 
+            // dgvBooks
+            // 
+            this.dgvBooks.AllowUserToAddRows = false;
+            this.dgvBooks.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgvBooks.Location = new System.Drawing.Point(0, 0);
+            this.dgvBooks.Name = "dgvBooks";
+            this.dgvBooks.ReadOnly = true;
+            this.dgvBooks.RowTemplate.Height = 35;
+            this.dgvBooks.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvBooks.Size = new System.Drawing.Size(967, 518);
+            this.dgvBooks.TabIndex = 0;
+            this.dgvBooks.SelectionChanged += new System.EventHandler(this.Dgv_SelectionChanged);
+            // 
+            // pnlDetails
+            // 
+            this.pnlDetails.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(240)))), ((int)(((byte)(241)))));
+            this.pnlDetails.Controls.Add(this.pbCover);
+            this.pnlDetails.Controls.Add(this.tableLayoutPanel1);
+            this.pnlDetails.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlDetails.Location = new System.Drawing.Point(0, 0);
+            this.pnlDetails.Name = "pnlDetails";
+            this.pnlDetails.Padding = new System.Windows.Forms.Padding(15);
+            this.pnlDetails.Size = new System.Drawing.Size(229, 518);
+            this.pnlDetails.TabIndex = 0;
+            // 
+            // pbCover
+            // 
+            this.pbCover.BackColor = System.Drawing.Color.White;
+            this.pbCover.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pbCover.Location = new System.Drawing.Point(15, 15);
+            this.pbCover.Name = "pbCover";
+            this.pbCover.Size = new System.Drawing.Size(180, 240);
+            this.pbCover.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pbCover.TabIndex = 0;
+            this.pbCover.TabStop = false;
+            // 
+            // tableLayoutPanel1
+            // 
+            this.tableLayoutPanel1.AutoScroll = true;
+            this.tableLayoutPanel1.ColumnCount = 2;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel1.Controls.Add(this.lblDetailTitle, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.lblDetailTitleValue, 1, 0);
+            this.tableLayoutPanel1.Controls.Add(this.lblDetailAuthor, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.lblDetailAuthorValue, 1, 1);
+            this.tableLayoutPanel1.Controls.Add(this.lblDetailCategory, 0, 2);
+            this.tableLayoutPanel1.Controls.Add(this.lblDetailCategoryValue, 1, 2);
+            this.tableLayoutPanel1.Controls.Add(this.lblDetailPublish, 0, 3);
+            this.tableLayoutPanel1.Controls.Add(this.lblDetailPublishValue, 1, 3);
+            this.tableLayoutPanel1.Controls.Add(this.lblDetailPublisher, 0, 4);
+            this.tableLayoutPanel1.Controls.Add(this.lblDetailPublisherValue, 1, 4);
+            this.tableLayoutPanel1.Controls.Add(this.lblDetailPages, 0, 5);
+            this.tableLayoutPanel1.Controls.Add(this.lblDetailPagesValue, 1, 5);
+            this.tableLayoutPanel1.Controls.Add(this.lblDetailAdded, 0, 6);
+            this.tableLayoutPanel1.Controls.Add(this.lblDetailAddedValue, 1, 6);
+            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(15, 15);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(199, 488);
+            this.tableLayoutPanel1.TabIndex = 1;
+            // 
+            // lblDetailTitle
+            // 
+            this.lblDetailTitle.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.lblDetailTitle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(152)))), ((int)(((byte)(219)))));
+            this.lblDetailTitle.Location = new System.Drawing.Point(3, 0);
+            this.lblDetailTitle.Name = "lblDetailTitle";
+            this.lblDetailTitle.Size = new System.Drawing.Size(94, 20);
+            this.lblDetailTitle.TabIndex = 0;
+            this.lblDetailTitle.Text = "Tiêu đề:";
+            // 
+            // lblDetailTitleValue
+            // 
+            this.lblDetailTitleValue.AutoSize = true;
+            this.lblDetailTitleValue.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.lblDetailTitleValue.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(62)))), ((int)(((byte)(80)))));
+            this.lblDetailTitleValue.Location = new System.Drawing.Point(103, 0);
+            this.lblDetailTitleValue.Name = "lblDetailTitleValue";
+            this.lblDetailTitleValue.Size = new System.Drawing.Size(0, 15);
+            this.lblDetailTitleValue.TabIndex = 1;
+            // 
+            // lblDetailAuthor
+            // 
+            this.lblDetailAuthor.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.lblDetailAuthor.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(152)))), ((int)(((byte)(219)))));
+            this.lblDetailAuthor.Location = new System.Drawing.Point(3, 20);
+            this.lblDetailAuthor.Name = "lblDetailAuthor";
+            this.lblDetailAuthor.Size = new System.Drawing.Size(94, 20);
+            this.lblDetailAuthor.TabIndex = 2;
+            this.lblDetailAuthor.Text = "Tác giả:";
+            // 
+            // lblDetailAuthorValue
+            // 
+            this.lblDetailAuthorValue.AutoSize = true;
+            this.lblDetailAuthorValue.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.lblDetailAuthorValue.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(62)))), ((int)(((byte)(80)))));
+            this.lblDetailAuthorValue.Location = new System.Drawing.Point(103, 20);
+            this.lblDetailAuthorValue.Name = "lblDetailAuthorValue";
+            this.lblDetailAuthorValue.Size = new System.Drawing.Size(0, 15);
+            this.lblDetailAuthorValue.TabIndex = 3;
+            // 
+            // lblDetailCategory
+            // 
+            this.lblDetailCategory.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.lblDetailCategory.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(152)))), ((int)(((byte)(219)))));
+            this.lblDetailCategory.Location = new System.Drawing.Point(3, 40);
+            this.lblDetailCategory.Name = "lblDetailCategory";
+            this.lblDetailCategory.Size = new System.Drawing.Size(94, 20);
+            this.lblDetailCategory.TabIndex = 4;
+            this.lblDetailCategory.Text = "Thể loại:";
+            // 
+            // lblDetailCategoryValue
+            // 
+            this.lblDetailCategoryValue.AutoSize = true;
+            this.lblDetailCategoryValue.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.lblDetailCategoryValue.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(62)))), ((int)(((byte)(80)))));
+            this.lblDetailCategoryValue.Location = new System.Drawing.Point(103, 40);
+            this.lblDetailCategoryValue.Name = "lblDetailCategoryValue";
+            this.lblDetailCategoryValue.Size = new System.Drawing.Size(0, 15);
+            this.lblDetailCategoryValue.TabIndex = 5;
+            // 
+            // lblDetailPublish
+            // 
+            this.lblDetailPublish.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.lblDetailPublish.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(152)))), ((int)(((byte)(219)))));
+            this.lblDetailPublish.Location = new System.Drawing.Point(3, 60);
+            this.lblDetailPublish.Name = "lblDetailPublish";
+            this.lblDetailPublish.Size = new System.Drawing.Size(94, 20);
+            this.lblDetailPublish.TabIndex = 6;
+            this.lblDetailPublish.Text = "Ngày XB:";
+            // 
+            // lblDetailPublishValue
+            // 
+            this.lblDetailPublishValue.AutoSize = true;
+            this.lblDetailPublishValue.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.lblDetailPublishValue.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(62)))), ((int)(((byte)(80)))));
+            this.lblDetailPublishValue.Location = new System.Drawing.Point(103, 60);
+            this.lblDetailPublishValue.Name = "lblDetailPublishValue";
+            this.lblDetailPublishValue.Size = new System.Drawing.Size(0, 15);
+            this.lblDetailPublishValue.TabIndex = 7;
+            // 
+            // lblDetailPublisher
+            // 
+            this.lblDetailPublisher.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.lblDetailPublisher.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(152)))), ((int)(((byte)(219)))));
+            this.lblDetailPublisher.Location = new System.Drawing.Point(3, 80);
+            this.lblDetailPublisher.Name = "lblDetailPublisher";
+            this.lblDetailPublisher.Size = new System.Drawing.Size(94, 20);
+            this.lblDetailPublisher.TabIndex = 8;
+            this.lblDetailPublisher.Text = "Nhà XB:";
+            // 
+            // lblDetailPublisherValue
+            // 
+            this.lblDetailPublisherValue.AutoSize = true;
+            this.lblDetailPublisherValue.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.lblDetailPublisherValue.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(62)))), ((int)(((byte)(80)))));
+            this.lblDetailPublisherValue.Location = new System.Drawing.Point(103, 80);
+            this.lblDetailPublisherValue.Name = "lblDetailPublisherValue";
+            this.lblDetailPublisherValue.Size = new System.Drawing.Size(0, 15);
+            this.lblDetailPublisherValue.TabIndex = 9;
+            // 
+            // lblDetailPages
+            // 
+            this.lblDetailPages.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.lblDetailPages.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(152)))), ((int)(((byte)(219)))));
+            this.lblDetailPages.Location = new System.Drawing.Point(3, 100);
+            this.lblDetailPages.Name = "lblDetailPages";
+            this.lblDetailPages.Size = new System.Drawing.Size(94, 20);
+            this.lblDetailPages.TabIndex = 10;
+            this.lblDetailPages.Text = "Số trang:";
+            // 
+            // lblDetailPagesValue
+            // 
+            this.lblDetailPagesValue.AutoSize = true;
+            this.lblDetailPagesValue.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.lblDetailPagesValue.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(62)))), ((int)(((byte)(80)))));
+            this.lblDetailPagesValue.Location = new System.Drawing.Point(103, 100);
+            this.lblDetailPagesValue.Name = "lblDetailPagesValue";
+            this.lblDetailPagesValue.Size = new System.Drawing.Size(0, 15);
+            this.lblDetailPagesValue.TabIndex = 11;
+            // 
+            // lblDetailAdded
+            // 
+            this.lblDetailAdded.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.lblDetailAdded.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(152)))), ((int)(((byte)(219)))));
+            this.lblDetailAdded.Location = new System.Drawing.Point(3, 120);
+            this.lblDetailAdded.Name = "lblDetailAdded";
+            this.lblDetailAdded.Size = new System.Drawing.Size(94, 23);
+            this.lblDetailAdded.TabIndex = 12;
+            this.lblDetailAdded.Text = "Ngày thêm:";
+            // 
+            // lblDetailAddedValue
+            // 
+            this.lblDetailAddedValue.AutoSize = true;
+            this.lblDetailAddedValue.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.lblDetailAddedValue.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(62)))), ((int)(((byte)(80)))));
+            this.lblDetailAddedValue.Location = new System.Drawing.Point(103, 120);
+            this.lblDetailAddedValue.Name = "lblDetailAddedValue";
+            this.lblDetailAddedValue.Size = new System.Drawing.Size(0, 15);
+            this.lblDetailAddedValue.TabIndex = 13;
+            // 
+            // statusStrip1
+            // 
+            this.statusStrip1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(62)))), ((int)(((byte)(80)))));
+            this.statusStrip1.ForeColor = System.Drawing.Color.White;
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripStatusLabelCount});
+            this.statusStrip1.Location = new System.Drawing.Point(0, 678);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(1200, 22);
+            this.statusStrip1.TabIndex = 3;
+            // 
+            // toolStripStatusLabelCount
+            // 
+            this.toolStripStatusLabelCount.ForeColor = System.Drawing.Color.White;
+            this.toolStripStatusLabelCount.Name = "toolStripStatusLabelCount";
+            this.toolStripStatusLabelCount.Size = new System.Drawing.Size(59, 17);
+            this.toolStripStatusLabelCount.Text = "Số sách: 0";
+            // 
+            // lblTotalBooks
+            // 
+            this.lblTotalBooks.Location = new System.Drawing.Point(0, 0);
+            this.lblTotalBooks.Name = "lblTotalBooks";
+            this.lblTotalBooks.Size = new System.Drawing.Size(100, 23);
+            this.lblTotalBooks.TabIndex = 0;
+            // 
+            // MainForm
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(1200, 700);
+            this.Controls.Add(this.splitContainer1);
+            this.Controls.Add(this.pnlSearch);
+            this.Controls.Add(this.pnlTop);
+            this.Controls.Add(this.statusStrip1);
+            this.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.Name = "MainForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "📚 Thư Viện Sách Cá Nhân";
+            this.pnlTop.ResumeLayout(false);
+            this.pnlSearch.ResumeLayout(false);
+            this.pnlSearch.PerformLayout();
+            this.splitContainer1.Panel1.ResumeLayout(false);
+            this.splitContainer1.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
+            this.splitContainer1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvBooks)).EndInit();
+            this.pnlDetails.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pbCover)).EndInit();
+            this.tableLayoutPanel1.ResumeLayout(false);
+            this.tableLayoutPanel1.PerformLayout();
+            this.statusStrip1.ResumeLayout(false);
+            this.statusStrip1.PerformLayout();
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
+ }
+
+ #endregion
+
+ private System.Windows.Forms.FlowLayoutPanel pnlTop;
+ private System.Windows.Forms.Button btnAdd;
+ private System.Windows.Forms.Button btnEdit;
+ private System.Windows.Forms.Button btnDelete;
+ private System.Windows.Forms.Button btnImport;
+ private System.Windows.Forms.Button btnExport;
+ private System.Windows.Forms.Panel pnlSearch;
+ private System.Windows.Forms.Label lblSearch;
+ private System.Windows.Forms.TextBox txtSearch;
+ private System.Windows.Forms.Button btnClearSearch;
+ private System.Windows.Forms.SplitContainer splitContainer1;
+ private System.Windows.Forms.DataGridView dgvBooks;
+ private System.Windows.Forms.Panel pnlDetails;
+ private System.Windows.Forms.PictureBox pbCover;
+ private System.Windows.Forms.Label lblDetailTitle;
+ private System.Windows.Forms.Label lblDetailAuthor;
+ private System.Windows.Forms.Label lblDetailCategory;
+ private System.Windows.Forms.Label lblDetailPublish;
+ private System.Windows.Forms.Label lblDetailPublisher;
+ private System.Windows.Forms.Label lblDetailPages;
+ private System.Windows.Forms.Label lblDetailAdded;
+ private System.Windows.Forms.Label lblDetailTitleValue;
+ private System.Windows.Forms.Label lblDetailAuthorValue;
+ private System.Windows.Forms.Label lblDetailCategoryValue;
+ private System.Windows.Forms.Label lblDetailPublishValue;
+ private System.Windows.Forms.Label lblDetailPublisherValue;
+ private System.Windows.Forms.Label lblDetailPagesValue;
+ private System.Windows.Forms.Label lblDetailAddedValue;
+ private System.Windows.Forms.StatusStrip statusStrip1;
+ private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabelCount;
+ private System.Windows.Forms.Label lblTotalBooks;
+ private System.Windows.Forms.DataGridViewTextBoxColumn colId;
+ private System.Windows.Forms.DataGridViewTextBoxColumn colTitle;
+ private System.Windows.Forms.DataGridViewTextBoxColumn colAuthor;
+ private System.Windows.Forms.DataGridViewTextBoxColumn colCategory;
+ private System.Windows.Forms.DataGridViewTextBoxColumn colPublish;
+ private System.Windows.Forms.DataGridViewTextBoxColumn colPages;
+ private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+ }
+}
+

@@ -1,0 +1,259 @@
+﻿namespace CTK47B_BaiTapNhom_ThuVienQuanLySachCaNhan
+{
+    partial class MainForm
+    {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
+
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        #region Windows Form Designer generated code
+
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
+            this.components = new System.ComponentModel.Container();
+            this.pnlTop = new System.Windows.Forms.FlowLayoutPanel();
+            this.btnAdd = new System.Windows.Forms.Button();
+            this.btnEdit = new System.Windows.Forms.Button();
+            this.btnDelete = new System.Windows.Forms.Button();
+            this.btnImport = new System.Windows.Forms.Button();
+            this.btnExport = new System.Windows.Forms.Button();
+            this.pnlSearch = new System.Windows.Forms.Panel();
+            this.lblSearch = new System.Windows.Forms.Label();
+            this.txtSearch = new System.Windows.Forms.TextBox();
+            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.dgvBooks = new System.Windows.Forms.DataGridView();
+            this.colId = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colTitle = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colAuthor = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colCategory = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colPublish = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.pnlDetails = new System.Windows.Forms.Panel();
+            this.lblDetails = new System.Windows.Forms.Label();
+            this.txtDetails = new System.Windows.Forms.TextBox();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
+            this.splitContainer1.Panel1.SuspendLayout();
+            this.splitContainer1.Panel2.SuspendLayout();
+            this.splitContainer1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvBooks)).BeginInit();
+            this.pnlTop.SuspendLayout();
+            this.pnlSearch.SuspendLayout();
+            this.pnlDetails.SuspendLayout();
+            this.SuspendLayout();
+            // 
+            // pnlTop
+            // 
+            this.pnlTop.Controls.Add(this.btnAdd);
+            this.pnlTop.Controls.Add(this.btnEdit);
+            this.pnlTop.Controls.Add(this.btnDelete);
+            this.pnlTop.Controls.Add(this.btnImport);
+            this.pnlTop.Controls.Add(this.btnExport);
+            this.pnlTop.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pnlTop.Height = 100;
+            this.pnlTop.Padding = new System.Windows.Forms.Padding(10);
+            // 
+            // btnAdd
+            // 
+            this.btnAdd.Text = "Add";
+            this.btnAdd.Width = 80;
+            this.btnAdd.Height = 80;
+            this.btnAdd.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.btnAdd.Click += new System.EventHandler(this.BtnAdd_Click);
+            // 
+            // btnEdit
+            // 
+            this.btnEdit.Text = "Edit";
+            this.btnEdit.Width = 80;
+            this.btnEdit.Height = 80;
+            this.btnEdit.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.btnEdit.Click += new System.EventHandler(this.BtnEdit_Click);
+            // 
+            // btnDelete
+            // 
+            this.btnDelete.Text = "Delete";
+            this.btnDelete.Width = 80;
+            this.btnDelete.Height = 80;
+            this.btnDelete.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.btnDelete.Click += new System.EventHandler(this.BtnDelete_Click);
+            // 
+            // btnImport
+            // 
+            this.btnImport.Text = "Import TXT";
+            this.btnImport.Width = 100;
+            this.btnImport.Height = 80;
+            this.btnImport.Click += new System.EventHandler(this.BtnImport_Click);
+            // 
+            // btnExport
+            // 
+            this.btnExport.Text = "Export Excel";
+            this.btnExport.Width = 100;
+            this.btnExport.Height = 80;
+            this.btnExport.Click += new System.EventHandler(this.BtnExport_Click);
+            // 
+            // pnlSearch
+            // 
+            this.pnlSearch.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pnlSearch.Height = 40;
+            this.pnlSearch.Padding = new System.Windows.Forms.Padding(10);
+            this.pnlSearch.Controls.Add(this.lblSearch);
+            this.pnlSearch.Controls.Add(this.txtSearch);
+            // 
+            // lblSearch
+            // 
+            this.lblSearch.Text = "Search:";
+            this.lblSearch.AutoSize = true;
+            this.lblSearch.Location = new System.Drawing.Point(10, 10);
+            // 
+            // txtSearch
+            // 
+            this.txtSearch.Name = "txtSearch";
+            this.txtSearch.Width = 400;
+            this.txtSearch.Location = new System.Drawing.Point(70, 8);
+            this.txtSearch.TextChanged += new System.EventHandler(this.TxtSearch_TextChanged);
+            // 
+            // splitContainer1
+            // 
+            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Vertical;
+            this.splitContainer1.SplitterDistance = 600;
+            // 
+            // splitContainer1.Panel1
+            // 
+            this.splitContainer1.Panel1.Controls.Add(this.dgvBooks);
+            // 
+            // splitContainer1.Panel2
+            // 
+            this.splitContainer1.Panel2.Controls.Add(this.pnlDetails);
+            // 
+            // dgvBooks
+            // 
+            this.dgvBooks.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgvBooks.Name = "dgvBooks";
+            this.dgvBooks.ReadOnly = true;
+            this.dgvBooks.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvBooks.MultiSelect = true;
+            this.dgvBooks.AutoGenerateColumns = false;
+            this.dgvBooks.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.colId,
+            this.colTitle,
+            this.colAuthor,
+            this.colCategory,
+            this.colPublish});
+            this.dgvBooks.SelectionChanged += new System.EventHandler(this.Dgv_SelectionChanged);
+            // 
+            // colId
+            // 
+            this.colId.DataPropertyName = "Id";
+            this.colId.HeaderText = "ID";
+            this.colId.Width = 50;
+            // 
+            // colTitle
+            // 
+            this.colTitle.DataPropertyName = "Title";
+            this.colTitle.HeaderText = "Title";
+            this.colTitle.Width = 200;
+            // 
+            // colAuthor
+            // 
+            this.colAuthor.DataPropertyName = "Author";
+            this.colAuthor.HeaderText = "Author";
+            this.colAuthor.Width = 150;
+            // 
+            // colCategory
+            // 
+            this.colCategory.DataPropertyName = "Category";
+            this.colCategory.HeaderText = "Category";
+            this.colCategory.Width = 120;
+            // 
+            // colPublish
+            // 
+            this.colPublish.DataPropertyName = "PublishDate";
+            this.colPublish.HeaderText = "Publish";
+            this.colPublish.Width = 100;
+            // 
+            // pnlDetails
+            // 
+            this.pnlDetails.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlDetails.Padding = new System.Windows.Forms.Padding(10);
+            this.pnlDetails.Controls.Add(this.txtDetails);
+            this.pnlDetails.Controls.Add(this.lblDetails);
+            // 
+            // lblDetails
+            // 
+            this.lblDetails.Text = "Details";
+            this.lblDetails.Font = new System.Drawing.Font(this.lblDetails.Font.FontFamily, 10F, System.Drawing.FontStyle.Bold);
+            this.lblDetails.Dock = System.Windows.Forms.DockStyle.Top;
+            this.lblDetails.Height = 25;
+            // 
+            // txtDetails
+            // 
+            this.txtDetails.Name = "txtDetails";
+            this.txtDetails.Multiline = true;
+            this.txtDetails.ReadOnly = true;
+            this.txtDetails.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtDetails.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            // 
+            // MainForm
+            // 
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(1000, 600);
+            this.Controls.Add(this.splitContainer1);
+            this.Controls.Add(this.pnlSearch);
+            this.Controls.Add(this.pnlTop);
+            this.Text = "Personal Book Library";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
+            this.splitContainer1.Panel1.ResumeLayout(false);
+            this.splitContainer1.Panel2.ResumeLayout(false);
+            this.splitContainer1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvBooks)).EndInit();
+            this.pnlTop.ResumeLayout(false);
+            this.pnlSearch.ResumeLayout(false);
+            this.pnlSearch.PerformLayout();
+            this.pnlDetails.ResumeLayout(false);
+            this.pnlDetails.PerformLayout();
+            this.ResumeLayout(false);
+
+        }
+
+        #endregion
+
+        private System.Windows.Forms.FlowLayoutPanel pnlTop;
+        private System.Windows.Forms.Button btnAdd;
+        private System.Windows.Forms.Button btnEdit;
+        private System.Windows.Forms.Button btnDelete;
+        private System.Windows.Forms.Button btnImport;
+        private System.Windows.Forms.Button btnExport;
+        private System.Windows.Forms.Panel pnlSearch;
+        private System.Windows.Forms.Label lblSearch;
+        private System.Windows.Forms.TextBox txtSearch;
+        private System.Windows.Forms.SplitContainer splitContainer1;
+        private System.Windows.Forms.DataGridView dgvBooks;
+        private System.Windows.Forms.Panel pnlDetails;
+        private System.Windows.Forms.Label lblDetails;
+        private System.Windows.Forms.TextBox txtDetails;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colId;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colTitle;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colAuthor;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colCategory;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colPublish;
+    }
+}
+

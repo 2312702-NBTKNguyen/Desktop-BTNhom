@@ -1,0 +1,103 @@
+﻿namespace CTK47B_BaiTapNhom_ThuVienQuanLySachCaNhan.Forms
+{
+ partial class ImportForm
+ {
+ private System.ComponentModel.IContainer components = null;
+ protected override void Dispose(bool disposing)
+ {
+ if (disposing && (components != null))
+ {
+ components.Dispose();
+ }
+ base.Dispose(disposing);
+ }
+
+ #region Windows Form Designer generated code
+
+ private void InitializeComponent()
+ {
+ this.txtPath = new System.Windows.Forms.TextBox();
+ this.btnBrowse = new System.Windows.Forms.Button();
+ this.dgvPreview = new System.Windows.Forms.DataGridView();
+ this.btnImport = new System.Windows.Forms.Button();
+ this.btnCancel = new System.Windows.Forms.Button();
+ ((System.ComponentModel.ISupportInitialize)(this.dgvPreview)).BeginInit();
+ this.SuspendLayout();
+ // 
+ // txtPath
+ // 
+ this.txtPath.Location = new System.Drawing.Point(12,12);
+ this.txtPath.Name = "txtPath";
+ this.txtPath.Size = new System.Drawing.Size(520,20);
+ this.txtPath.TabIndex =0;
+ // 
+ // btnBrowse
+ // 
+ this.btnBrowse.Location = new System.Drawing.Point(538,10);
+ this.btnBrowse.Name = "btnBrowse";
+ this.btnBrowse.Size = new System.Drawing.Size(75,23);
+ this.btnBrowse.TabIndex =1;
+ this.btnBrowse.Text = "Browse...";
+ this.btnBrowse.UseVisualStyleBackColor = true;
+ this.btnBrowse.Click += new System.EventHandler(this.BtnBrowse_Click);
+ // 
+ // dgvPreview
+ // 
+ this.dgvPreview.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+ | System.Windows.Forms.AnchorStyles.Left)
+ | System.Windows.Forms.AnchorStyles.Right)));
+ this.dgvPreview.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+ this.dgvPreview.Location = new System.Drawing.Point(12,40);
+ this.dgvPreview.Name = "dgvPreview";
+ this.dgvPreview.Size = new System.Drawing.Size(760,360);
+ this.dgvPreview.TabIndex =2;
+ // 
+ // btnImport
+ // 
+ this.btnImport.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+ this.btnImport.Location = new System.Drawing.Point(616,410);
+ this.btnImport.Name = "btnImport";
+ this.btnImport.Size = new System.Drawing.Size(75,23);
+ this.btnImport.TabIndex =3;
+ this.btnImport.Text = "Import";
+ this.btnImport.UseVisualStyleBackColor = true;
+ this.btnImport.Click += new System.EventHandler(this.BtnImport_Click);
+ // 
+ // btnCancel
+ // 
+ this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+ this.btnCancel.Location = new System.Drawing.Point(697,410);
+ this.btnCancel.Name = "btnCancel";
+ this.btnCancel.Size = new System.Drawing.Size(75,23);
+ this.btnCancel.TabIndex =4;
+ this.btnCancel.Text = "Cancel";
+ this.btnCancel.UseVisualStyleBackColor = true;
+ this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+ // 
+ // ImportForm
+ // 
+ this.AcceptButton = this.btnImport;
+ this.CancelButton = this.btnCancel;
+ this.ClientSize = new System.Drawing.Size(784,441);
+ this.Controls.Add(this.btnCancel);
+ this.Controls.Add(this.btnImport);
+ this.Controls.Add(this.dgvPreview);
+ this.Controls.Add(this.btnBrowse);
+ this.Controls.Add(this.txtPath);
+ this.Name = "ImportForm";
+ this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+ this.Text = "Import from TXT";
+ ((System.ComponentModel.ISupportInitialize)(this.dgvPreview)).EndInit();
+ this.ResumeLayout(false);
+ this.PerformLayout();
+ }
+
+ #endregion
+
+ private System.Windows.Forms.TextBox txtPath;
+ private System.Windows.Forms.Button btnBrowse;
+ private System.Windows.Forms.DataGridView dgvPreview;
+ private System.Windows.Forms.Button btnImport;
+ private System.Windows.Forms.Button btnCancel;
+ }
+}
