@@ -26,6 +26,9 @@ namespace ThuVienQuanLySachCaNhan
             tsbXoaSach.Click += tsbXoaSach_Click;
             tsbLamMoi.Click += (s, e) => LoadBooks();
             thêmThủCôngToolStripMenuItem.Click += (s, e) => OpenAddBookForm();
+            // Redirect "Thêm từ File" to same add form (remove separate import behavior)
+            thêmTừFileToolStripMenuItem.Click += (s, e) => OpenAddBookForm();
+
             cbbTimKiem.TextChanged += (s, e) => ApplySearchFilter();
             cbbTimKiem.KeyDown += (s, e) =>
             {
@@ -199,9 +202,50 @@ namespace ThuVienQuanLySachCaNhan
             }
         }
 
+        private Book GetSelectedBook()
+        {
+            if (dgvSach.SelectedRows.Count ==0) return null;
+            var row = dgvSach.SelectedRows[0];
+
+            if (row.DataBoundItem is Book b1)
+            {
+                return b1;
+            }
+            else if (row.DataBoundItem is DataRowView drv)
+            {
+                try
+                {
+                    return new Book
+                    {
+                        Id = Convert.ToInt32(drv["Id"]),
+                        Title = drv["Title"]?.ToString() ?? string.Empty,
+                        Author = drv["Author"]?.ToString() ?? string.Empty,
+                        Topic = drv["Topic"]?.ToString() ?? string.Empty,
+                        Publisher = drv["Publisher"]?.ToString() ?? string.Empty,
+                        PublishDate = drv["PublishDate"] as DateTime?,
+                        DateAdded = drv["DateAdded"] == null ? DateTime.MinValue : Convert.ToDateTime(drv["DateAdded"]),
+                        FileSizeMB = drv["FileSizeMB"] as decimal?,
+                        PageCount = drv["PageCount"] as int?,
+                        FilePath = drv["FilePath"]?.ToString() ?? string.Empty,
+                        CoverImagePath = drv["CoverImagePath"]?.ToString() ?? string.Empty,
+                        Description = drv["Description"]?.ToString() ?? string.Empty,
+                        IsRead = drv["IsRead"] == null ? false : Convert.ToBoolean(drv["IsRead"]),
+                        Rating = drv["Rating"] is DBNull ?0 : Convert.ToInt32(drv["Rating"]),
+                        Notes = drv["Notes"]?.ToString() ?? string.Empty
+                    };
+                }
+                catch
+                {
+                    return null;
+                }
+            }
+
+            return null;
+        }
+
         private void dgvSach_SelectionChanged(object sender, EventArgs e)
         {
-            if (dgvSach.SelectedRows.Count > 0)
+            if (dgvSach.SelectedRows.Count >0)
             {
                 var row = dgvSach.SelectedRows[0];
                 Book book = null;
@@ -227,7 +271,7 @@ namespace ThuVienQuanLySachCaNhan
                         CoverImagePath = drv["CoverImagePath"].ToString(),
                         Description = drv["Description"].ToString(),
                         IsRead = Convert.ToBoolean(drv["IsRead"]),
-                        Rating = drv["Rating"] is DBNull ? 0 : Convert.ToInt32(drv["Rating"]),
+                        Rating = drv["Rating"] is DBNull ?0 : Convert.ToInt32(drv["Rating"]),
                         Notes = drv["Notes"].ToString()
                     };
                 }
@@ -358,14 +402,12 @@ namespace ThuVienQuanLySachCaNhan
 
         private void tsbSuaTT_Click(object sender, EventArgs e)
         {
-            if (dgvSach.SelectedRows.Count == 0)
+            var book = GetSelectedBook();
+            if (book == null)
             {
                 MessageBox.Show("Vui lòng chọn sách để sửa.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-
-            var book = dgvSach.SelectedRows[0].DataBoundItem as Book;
-            if (book == null) return;
 
             using (var form = new BookEditForm(book))
             {

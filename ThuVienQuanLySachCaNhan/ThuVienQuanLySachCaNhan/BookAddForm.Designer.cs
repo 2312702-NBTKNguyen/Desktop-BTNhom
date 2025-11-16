@@ -212,6 +212,7 @@
             this.chkPublishDate.TabIndex = 1;
             this.chkPublishDate.Text = "Chọn ngày";
             this.chkPublishDate.UseVisualStyleBackColor = true;
+            this.chkPublishDate.CheckedChanged += new System.EventHandler(this.chkPublishDate_CheckedChanged);
             // 
             // label6
             // 
@@ -292,6 +293,7 @@
             this.btnSelectCover.TabIndex = 0;
             this.btnSelectCover.Text = "Chọn ảnh";
             this.btnSelectCover.UseVisualStyleBackColor = true;
+            this.btnSelectCover.Click += new System.EventHandler(this.btnSelectCover_Click);
             // 
             // pbCover
             // 
@@ -330,6 +332,7 @@
             this.btnSelectFile.TabIndex = 0;
             this.btnSelectFile.Text = "Chọn file";
             this.btnSelectFile.UseVisualStyleBackColor = true;
+            this.btnSelectFile.Click += new System.EventHandler(this.btnSelectFile_Click);
             // 
             // txtFileName
             // 
@@ -402,6 +405,7 @@
             this.btnCancel.TabIndex = 1;
             this.btnCancel.Text = "Hủy";
             this.btnCancel.UseVisualStyleBackColor = true;
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
             // btnSave
             // 
@@ -411,6 +415,7 @@
             this.btnSave.TabIndex = 0;
             this.btnSave.Text = "Lưu";
             this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // BookAddForm
             // 

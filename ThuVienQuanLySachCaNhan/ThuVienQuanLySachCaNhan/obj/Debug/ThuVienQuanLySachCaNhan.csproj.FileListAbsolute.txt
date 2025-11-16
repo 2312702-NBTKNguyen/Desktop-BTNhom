@@ -20,3 +20,14 @@ C:\Study\CTK47B_BaiTapNhom_ThuVienQuanLySachCaNhan\ThuVienQuanLySachCaNhan\ThuVi
 C:\Study\CTK47B_BaiTapNhom_ThuVienQuanLySachCaNhan\ThuVienQuanLySachCaNhan\ThuVienQuanLySachCaNhan\obj\Debug\ThuVienQuanLySachCaNhan.csproj.CoreCompileInputs.cache
 C:\Study\CTK47B_BaiTapNhom_ThuVienQuanLySachCaNhan\ThuVienQuanLySachCaNhan\ThuVienQuanLySachCaNhan\obj\Debug\ThuVienQuanLySachCaNhan.exe
 C:\Study\CTK47B_BaiTapNhom_ThuVienQuanLySachCaNhan\ThuVienQuanLySachCaNhan\ThuVienQuanLySachCaNhan\obj\Debug\ThuVienQuanLySachCaNhan.pdb
+C:\Study\Desktop-BTNhom\ThuVienQuanLySachCaNhan\ThuVienQuanLySachCaNhan\bin\Debug\ThuVienQuanLySachCaNhan.exe.config
+C:\Study\Desktop-BTNhom\ThuVienQuanLySachCaNhan\ThuVienQuanLySachCaNhan\bin\Debug\ThuVienQuanLySachCaNhan.exe
+C:\Study\Desktop-BTNhom\ThuVienQuanLySachCaNhan\ThuVienQuanLySachCaNhan\bin\Debug\ThuVienQuanLySachCaNhan.pdb
+C:\Study\Desktop-BTNhom\ThuVienQuanLySachCaNhan\ThuVienQuanLySachCaNhan\obj\Debug\ThuVienQuanLySachCaNhan.csproj.AssemblyReference.cache
+C:\Study\Desktop-BTNhom\ThuVienQuanLySachCaNhan\ThuVienQuanLySachCaNhan\obj\Debug\ThuVienQuanLySachCaNhan.BookAddForm.resources
+C:\Study\Desktop-BTNhom\ThuVienQuanLySachCaNhan\ThuVienQuanLySachCaNhan\obj\Debug\ThuVienQuanLySachCaNhan.MainForm.resources
+C:\Study\Desktop-BTNhom\ThuVienQuanLySachCaNhan\ThuVienQuanLySachCaNhan\obj\Debug\ThuVienQuanLySachCaNhan.Properties.Resources.resources
+C:\Study\Desktop-BTNhom\ThuVienQuanLySachCaNhan\ThuVienQuanLySachCaNhan\obj\Debug\ThuVienQuanLySachCaNhan.csproj.GenerateResource.cache
+C:\Study\Desktop-BTNhom\ThuVienQuanLySachCaNhan\ThuVienQuanLySachCaNhan\obj\Debug\ThuVienQuanLySachCaNhan.csproj.CoreCompileInputs.cache
+C:\Study\Desktop-BTNhom\ThuVienQuanLySachCaNhan\ThuVienQuanLySachCaNhan\obj\Debug\ThuVienQuanLySachCaNhan.exe
+C:\Study\Desktop-BTNhom\ThuVienQuanLySachCaNhan\ThuVienQuanLySachCaNhan\obj\Debug\ThuVienQuanLySachCaNhan.pdb
